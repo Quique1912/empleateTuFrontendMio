@@ -1,4 +1,4 @@
-const URL_BASE = 'http://localhost:3000/api/'
+const URL_BASE = 'https://empleatetubackendmio.onrender.com/api/user'
 export const getUsers = async () => {
     try{
         const response = await fetch(URL_BASE + 'users/',{

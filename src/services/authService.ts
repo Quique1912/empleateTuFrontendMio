@@ -1,4 +1,4 @@
-const URL_BASE = 'http://localhost:3000/api/'
+const URL_BASE = 'https://empleatetubackendmio.onrender.com/api/auth'
 export const loginUser = async (email: string, password: string) => {
     try{
         const response = await fetch(URL_BASE + 'auth/login',
@@ -19,5 +19,30 @@ export const loginUser = async (email: string, password: string) => {
     }catch(error){
         const msg = error instanceof Error ? error.message : 'Error desconocido'
         throw new Error(msg)
+    }
+}
+export const registerUser = async (email: string, password: string, confirmPassword: string) => {
+    try {
+        if (password !== confirmPassword) {
+            throw new Error('Las contraseñas no coinciden');
+        }
+
+        const response = await fetch(URL_BASE + 'auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password }),
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al registrarse');
+        }
+
+        return await response.json();
+    } catch (error) {
+        const msg = error instanceof Error ? error.message : 'Error desconocido';
+        throw new Error(msg);
     }
 }
