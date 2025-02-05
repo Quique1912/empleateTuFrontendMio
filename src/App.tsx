@@ -6,6 +6,9 @@ import Register from "./pages/Register"
 import Profile from "./pages/Profile"
 import UserList from "./pages/UserList"
 import Navbar from "./components/Navbar"
+import OfferList from "./pages/OfferList"
+import OfferForm from "./pages/OfferForm"
+import OfferDetail from "./pages/OfferDetail"
 
 function App() {
 
@@ -15,10 +18,14 @@ function App() {
       <Navbar/>
       <Routes>
         <Route path="/" element={<Home/>}/>
-        <Route path="/Login" element={<Login/>}/>
-        <Route path="/Profile" element={<Profile/>}/>
-        <Route path="/Register" element={<Register/>}/>
-        <Route path="/UserList" element={<UserList/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/profile" element={<Profile/>}/>
+        <Route path="/register" element={<Register/>}/>
+        <Route path="/userList" element={<UserList/>}/>
+        <Route path="/offers" element={<OfferList/>}/>
+        <Route path="/offers/:id" element={<OfferDetail/>}/>
+        <Route path="/offers/new" element={<OfferForm/>}/>
+        <Route path="/offers/edit/:id" element={<OfferForm/>}/>
       </Routes>
       </BrowserRouter>
     </>
