@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import Offer from "../models/Offer"
 import { OfferService } from "../services/offer.service"
+import { Link } from "react-router-dom"
 
 function OfferList() {
     const [offers, setOffers] = useState<Offer[]>()
@@ -22,6 +23,9 @@ function OfferList() {
         {offers?.map(offer => 
             <div key={offer.id}>
                 {offer.title}
+                <Link to={`/offers/${offer.id}}`}>Listar</Link>
+                <Link to={`/offers/edit/${offer.id}}`}>Editar</Link>
+                <button>Borrar</button>
             </div>
         )}
     </div>
