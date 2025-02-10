@@ -1,7 +1,7 @@
-const URL_BASE = 'https://empleatetubackendmio.onrender.com/'
+const URL_BASE = 'empleatetubackendmio.onrender.com/api/'
 export const loginUser = async (email: string, password: string) => {
     try{
-        const response = await fetch(URL_BASE + 'api/auth/login',
+        const response = await fetch(URL_BASE + 'auth/register',
             {
                 method: 'POST',
                 headers: {
@@ -21,9 +21,10 @@ export const loginUser = async (email: string, password: string) => {
         throw new Error(msg)
     }
 }
+
 export const registerUser = async (email: string, password: string, confirmPassword: string) => {
     try{
-        const response = await fetch(URL_BASE + 'api/auth/register',
+        const response = await fetch(URL_BASE + 'auth/login',
             {
                 method: 'POST',
                 headers: {
@@ -34,7 +35,7 @@ export const registerUser = async (email: string, password: string, confirmPassw
             }
         )
         if(!response.ok){
-            throw new Error('Error al registrarse')
+            throw new Error('Error al iniciar sesión')
         }
         return await response.json()
 
