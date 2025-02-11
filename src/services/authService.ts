@@ -1,4 +1,4 @@
-const URL_BASE = 'empleatetubackendmio.onrender.com/api/'
+const URL_BASE = 'https://empleatetubackendmio.onrender.com/api/'
 export const loginUser = async (email: string, password: string) => {
     try{
         const response = await fetch(URL_BASE + 'auth/register',
