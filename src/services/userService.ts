@@ -1,7 +1,7 @@
-const URL_BASE = 'https://empleatetubackendmio.onrender.com/api/'
+const API_URL_BASE = import.meta.env.VITE_API_URL_BASE
 export const getUsers = async () => {
     try{
-        const response = await fetch(URL_BASE + 'users/',{
+        const response = await fetch(API_URL_BASE + 'users/',{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

@@ -1,7 +1,7 @@
-const URL_BASE = 'https://empleatetubackendmio.onrender.com/api/'
+const API_URL_BASE = import.meta.env.VITE_API_URL_BASE
 export const loginUser = async (email: string, password: string) => {
     try{
-        const response = await fetch(URL_BASE + 'auth/register',
+        const response = await fetch(API_URL_BASE + 'auth/register',
             {
                 method: 'POST',
                 headers: {
@@ -24,7 +24,7 @@ export const loginUser = async (email: string, password: string) => {
 
 export const registerUser = async (email: string, password: string, confirmPassword: string) => {
     try{
-        const response = await fetch(URL_BASE + 'auth/login',
+        const response = await fetch(API_URL_BASE + 'auth/register',
             {
                 method: 'POST',
                 headers: {
