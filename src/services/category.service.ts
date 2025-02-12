@@ -2,8 +2,8 @@ import Offer from "../models/Offer"
 import { fetchAPI } from "../utils/FetchAPI"
 const API_URL_BASE = import.meta.env.VITE_API_URL_BASE
 
-export class OfferService {
-    static async search(title?: string) {
+export class CategoryService {
+    static async getAll(title?: string) {
         let url = API_URL_BASE+'/offers?'
         if(title) url += 'title='+title
 
