@@ -11,8 +11,9 @@ function OfferDetail() {
 
   useEffect(()=>{
     setLoading(true)
+    //if(!id) return
     OfferService
-      .getById(id)
+      .getById(Number(id))
       .then(setOffer)
       .catch(error => setError(error.message))
       .finally(()=>setLoading(false))
@@ -31,12 +32,13 @@ function OfferDetail() {
       <div>Fecha publicación: {new Date(offer.published).toLocaleString()}</div>
       <div>Fecha finalización: {new Date(offer.expired).toLocaleString()}</div>
       <div>Localización:</div>
-      
+      {offer.location &&
       <iframe width="100%" height="300" loading="lazy" 
       src={`https://www.google.com/maps?q=${offer.location}&output=embed`}
       >
 
       </iframe>
+  }
     </div>
   )
 }
