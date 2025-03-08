@@ -1,0 +1,33 @@
+import React from 'react'
+interface InputFormProps {
+    text: string
+    name: string
+    value?: string
+    checked?: boolean
+    placeholder?: string
+    type?: string
+    rows?: number
+    handleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+    error: string | undefined
+    }
+    function TextAreaInputForm({ text, name, value, handleChange, error, placeholder = '', rows = 5 }: InputFormProps) {
+        return (
+          <div className="mb-5 bg-yellow-200 p-4 rounded-lg">
+            <label htmlFor={name} className="block mb-2 text-sm font-medium text-yellow-700 dark:text-white">
+              {text}
+            </label>
+            <textarea
+              value={value}
+              onChange={handleChange}
+              name={name}
+              rows={rows}
+              id={name}
+              className="bg-yellow-50 border border-yellow-300 text-yellow-900 text-sm rounded-lg focus:ring-yellow-500 focus:border-yellow-500 block w-full p-2.5 dark:bg-yellow-700 dark:border-yellow-600 dark:placeholder-yellow-400 dark:text-white dark:focus:ring-yellow-500 dark:focus:border-yellow-500"
+              placeholder={placeholder}
+            />
+            {error && <p className="mt-2 text-sm text-red-600 dark:text-red-500">{error}</p>}
+          </div>
+        );
+      }
+
+export default TextAreaInputForm
