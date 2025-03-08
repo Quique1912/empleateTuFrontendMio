@@ -17,10 +17,10 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <div className="">
+      <div className="flex flex-col min-h-screen w-full">
           <Navbar />
           <Toaster position="top-center" reverseOrder={false} />
-          <div className="flex grow justify-center items-center">
+          <div className="flex-1 flex justify-center items-center bg-gray-100 dark:bg-gray-800 p-4">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
