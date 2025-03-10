@@ -1,28 +1,25 @@
+const API_URL_BASE = import.meta.env.VITE_API_URL_BASE
+
 export const fetchAPI = async (endPoint: string, options = {}) => {
-  try {
-      const response = await fetch(endPoint, options);
+    try {
+        let response = await fetch(endPoint, { ...options, credentials: "include" });
 
-      // Si la respuesta es 401 (sesión expirada), redirigir a la página de login
-      if (response.status === 401) {
-          // Puedes eliminar la sesión si es necesario aquí también
-          window.location.href = "/login"; // Redirigir a login
-          throw new Error("Sesión expirada. Inicia sesión nuevamente");
-      }
+        if (response.status === 401) {
+            // Intentar refrescar el token
+            const refreshResponse = await fetch(`${API_URL_BASE}/auth/refresh`, {
+                method: "POST",
+                credentials: "include",
+            });
 
-      const jsonData = await response.json();
-      if (!response.ok) {
-          if (jsonData.error) {
-              throw jsonData.error;
-          } else if (jsonData.message) {
-              throw jsonData.message;
-          } else {
-              throw { error: jsonData };
-          }
-      }
+            if (!refreshResponse.ok) throw new Error("Refresh token expired");
 
-      return jsonData;
-  } catch (error) {
-      console.error("Error:", error);
-      throw error;
-  }
+            // Reintentar la petición original con el nuevo token
+            response = await fetch(endPoint, { ...options, credentials: "include" });
+        }
+
+        return response.json();
+    } catch (error) {
+        console.error("Error en fetchAPI:", error);
+        throw error;
+    }
 };

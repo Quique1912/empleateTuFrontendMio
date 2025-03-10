@@ -1,76 +1,81 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { AuthService } from "../services/authService";
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-const API_URL_BASE = import.meta.env.VITE_API_URL_BASE;
-
-interface UserPayload {
-    id: number;
-    email: string;
-    role: string;
+interface AuthContextProps {
+  user: any;
+  isAuthenticated: boolean;
+  login: (token: string) => void;
+  logout: () => void;
 }
 
-interface AuthContextType {
-    user: UserPayload | null;
-    isAuthenticated: boolean;
-    isAdmin: boolean;
-    login: (email: string, password: string) => Promise<void>;
-    logout: () => Promise<void>;
+// Especificamos que "children" es un ReactNode (puede ser cualquier cosa que se pase como contenido dentro del componente)
+interface AuthProviderProps {
+  children: ReactNode;
 }
 
-const defaultAuthContext: AuthContextType = {
-    user: null,
-    isAuthenticated: false,
-    isAdmin: false,
-    login: async () => {},
-    logout: async () => {},
+const AuthContext = createContext<AuthContextProps | undefined>(undefined);
+
+const fetchUser = async () => {
+  const token = localStorage.getItem('accessToken');
+  if (!token) {
+    throw new Error('No autenticado');
+  }
+
+  const response = await fetch('/api/user', {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al cargar el usuario');
+  }
+
+  const data = await response.json();
+  return data;
 };
 
-const AuthContext = createContext<AuthContextType>(defaultAuthContext);
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => { // Aquí usamos React.FC y AuthProviderProps
+  const [user, setUser] = useState<any>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [user, setUser] = useState<UserPayload | null>(null);
-
-    useEffect(() => {
-        async function fetchUser() {
-            try {
-                const response = await fetch(`${API_URL_BASE}/auth/user`, { credentials: "include" });
-                if (!response.ok) throw new Error("No autenticado");
-                const data = await response.json();
-                setUser(data);
-            } catch (error) {
-                console.error("Error al cargar el usuario:", error);
-                setUser(null);
-            }
-        }
-        fetchUser();
-    }, []);
-
-    const login = async (email: string, password: string) => {
-        try {
-            const userData = await AuthService.loginUser(email, password); // Suponiendo que devuelve los datos del usuario
-            setUser(userData);
-        } catch (error) {
-            console.error("Error en el login:", error);
-            throw new Error("Error en el login");
-        }
+  useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const userData = await fetchUser();
+        setUser(userData);
+        setIsAuthenticated(true);
+      } catch (error) {
+        setIsAuthenticated(false);
+        setUser(null);
+      }
     };
 
-    const logout = async () => {
-        try {
-            await fetch(`${API_URL_BASE}/auth/logout`, { method: "POST", credentials: "include" });
-            setUser(null);
-        } catch (error) {
-            console.error("Error en el logout:", error);
-        }
-    };
+    loadUser();
+  }, []);
 
-    return (
-        <AuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user, isAdmin: user?.role === "admin" }}>
-            {children}
-        </AuthContext.Provider>
-    );
-}
+  const login = (token: string) => {
+    localStorage.setItem('accessToken', token);
+    setIsAuthenticated(true);
+  };
 
-export function useAuth() {
-    return useContext(AuthContext);
-}
+  const logout = () => {
+    localStorage.removeItem('accessToken');
+    setIsAuthenticated(false);
+    setUser(null);
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+      {children} {/* Esto es lo que se renderiza dentro del provider */}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth debe ser usado dentro de AuthProvider');
+  }
+  return context;
+};
