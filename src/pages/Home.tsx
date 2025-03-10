@@ -3,8 +3,8 @@ const Home = () => {
     <div className="bg-gray-800 text-white p-8">
       {/* Sección de Introducción */}
       <section className="text-center mb-16">
-        <h2 className="text-4xl font-bold mb-4">Bienvenido a GameZone</h2>
-        <p className="text-xl text-gray-400">Explora los mejores juegos, últimas noticias y mucho más.</p>
+        <h2 className="text-4xl font-bold mb-4">Bienvenido a QUIQUE19</h2>
+        <p className="text-xl text-gray-400">Explora los mejores análisis de juegos, últimas noticias y mucho más.</p>
       </section>
 
       {/* Juegos Destacados */}
@@ -14,31 +14,31 @@ const Home = () => {
           {/* Juego 1 */}
           <div className="bg-gray-900 p-6 rounded-lg">
             <img
-              src="/images/game1.jpg"
+              src="../src/assets/rdr2.jpg"
               alt="Juego 1"
               className="w-full h-48 object-cover rounded-lg mb-4"
             />
-            <h4 className="text-xl">Juego Épico 1</h4>
+            <h4 className="text-xl">Red Dead Redemption 2</h4>
             <p className="text-gray-400 mt-2">Una aventura épica llena de acción.</p>
           </div>
           {/* Juego 2 */}
           <div className="bg-gray-900 p-6 rounded-lg">
             <img
-              src="/images/game2.jpg"
+              src="../src/assets/witcher.jpg"
               alt="Juego 2"
               className="w-full h-48 object-cover rounded-lg mb-4"
             />
-            <h4 className="text-xl">Juego Épico 2</h4>
+            <h4 className="text-xl">The Witcher 3: Wild Hunt</h4>
             <p className="text-gray-400 mt-2">Explora mundos abiertos y combates desafiantes.</p>
           </div>
           {/* Juego 3 */}
           <div className="bg-gray-900 p-6 rounded-lg">
             <img
-              src="/images/game3.jpg"
+              src="../src/assets/wukong.jpg"
               alt="Juego 3"
               className="w-full h-48 object-cover rounded-lg mb-4"
             />
-            <h4 className="text-xl">Juego Épico 3</h4>
+            <h4 className="text-xl">Black Myth Wukong</h4>
             <p className="text-gray-400 mt-2">Lucha por la supervivencia en este intenso juego.</p>
           </div>
         </div>
