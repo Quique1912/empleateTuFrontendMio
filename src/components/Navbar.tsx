@@ -10,7 +10,7 @@ function Navbar() {
 <nav className="bg-white border-gray-200 dark:bg-gray-900">
 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
 
-  <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
+  <a href="http://localhost:5173/api" className="flex items-center space-x-3 rtl:space-x-reverse">
       <img src="../src/assets/logo.png" className="h-8" alt="Flowbite Logo"/>
       <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">QUIQUE19</span>
   </a>
@@ -37,9 +37,11 @@ function Navbar() {
       <li>
         <Link to="/profile" className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Profile</Link>
       </li>
+      {isAdmin &&
       <li>
         <Link to="/userList" className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Usuarios</Link>
       </li>
+      }
       {isAuthenticated &&
         <li>
         <Link to="/offers" className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Ofertas</Link>
@@ -48,6 +50,11 @@ function Navbar() {
       {isAdmin &&
         <li>
         <Link to="/categories" className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Categorias</Link>
+      </li>
+      }
+      {isAuthenticated &&
+        <li>
+        <Link to="/advises" className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Sugerencias</Link>
       </li>
       }
       {

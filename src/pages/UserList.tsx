@@ -8,6 +8,7 @@ interface User {
   email: string;
   role: string;
   course: string;
+  active: boolean
 }
 
 function UserList() {
@@ -20,7 +21,8 @@ function UserList() {
       try {
         const userList = await UserService.getAll();
         console.log('Usuarios obtenidos:', userList); // 🔍 Verifica la respuesta
-        setUsers(userList);
+        const activeUsers = userList.filter((user: User) => user.active); // Filtra solo los activos
+        setUsers(activeUsers);
       } catch (error) {
         const msg = error instanceof Error ? error.message : 'Error desconocido';
         setMessage(msg);
@@ -30,7 +32,7 @@ function UserList() {
     }
     loadUsers();
   }, []);
-
+  
   if (loading) return <div>Loading...</div>;
 
   return (

@@ -12,6 +12,7 @@ import { Toaster } from "react-hot-toast";
 import Footer from "./components/Footer";
 import CategoryManager from "./pages/CategoryManager";
 import './App.css';  // Importamos el CSS que contiene Tailwind
+import Advise from "./pages/AdvisePage";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
             <Route path="/offers/new" element={<OffertForm />} />
             <Route path="/offers/edit/:id" element={<OffertForm />} />
             <Route path="/categories" element={<CategoryManager />} />
+            <Route path="/advises" element={<Advise />} />
           </Routes>
         </main>
 
