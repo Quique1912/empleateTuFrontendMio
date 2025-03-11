@@ -5,20 +5,22 @@ const API_URL_BASE = import.meta.env.VITE_API_URL_BASE;
 
 export class UserService {
   static async getAll() {
-    const token = localStorage.getItem("accessToken"); // 🔍 Obtiene el token almacenado
-    if (!token) {
-      throw new Error("No autenticado");
-    }
-
     return await fetchAPI(API_URL_BASE + "/users", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`, // 🔑 Incluye el token en la solicitud
       },
       credentials: "include",
     });
   }
+  static async getProfile() {
+    return await fetchAPI(API_URL_BASE + "/users/profile", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    });
+
+  }
 }
-
-

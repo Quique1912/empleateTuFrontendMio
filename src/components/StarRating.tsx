@@ -39,7 +39,7 @@ export function StarRating({ idOffer }: StarRatingProps) {
           className="cursor-pointer"
           onClick={() => handleRate(star)}
         >
-          {star <= myRate ? <IconStarFilled size={20} className="text-yellow-500" /> : <IconStar size={20} className="text-gray-400" />}
+          {star <= myRate ? <IconStarFilled size={20} className="text-red-500" /> : <IconStar size={20} className="text-gray-400" />}
         </span>
       ))}
       <strong>Promedio:</strong> {averageRating ?? "N/A"} ⭐ ({totalRatings} votos)
